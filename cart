@@ -1,0 +1,22 @@
+
+USE online_store;
+
+-- products table (matches your screenshot: lowercase column names)
+CREATE TABLE IF NOT EXISTS products (
+  product_id   INT AUTO_INCREMENT PRIMARY KEY,
+  product_name VARCHAR(100) NOT NULL,
+  product_desc TEXT,
+  product_cost DECIMAL(10,2) NOT NULL
+);
+
+-- cart table with 4 columns
+CREATE TABLE IF NOT EXISTS cart (
+  cart_id   INT AUTO_INCREMENT PRIMARY KEY,
+  product_id INT NOT NULL,
+  quantity   INT NOT NULL DEFAULT 1,
+  added_at   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_cart_product
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT
+);
