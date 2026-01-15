@@ -1,5 +1,5 @@
 <?php
-// Start session to store cart in the session (if not already done in other files)
+// Start session to store cart in the session
 session_start();
 
 // Assuming the product data is fetched from the database
@@ -45,7 +45,10 @@ $totalPrice = 0.00;
                     <td>$<?php echo number_format($price, 2); ?></td>
                     <td>$<?php echo number_format($subtotal, 2); ?></td>
                     <td>
-                        <input type="submit" name="remove_cart[]" value="Remove" style="background-color: red; color: white;">
+                        <form action="../controller/productcontroller.php" method="POST">
+                            <input type="hidden" name="cart_id" value="<?php echo $row['cart_id']; ?>">
+                            <input type="submit" name="remove_cart" value="Remove" style="background-color: red; color: white;">
+                        </form>
                     </td>
                 </tr>
             <?php endwhile; ?>
@@ -58,6 +61,7 @@ $totalPrice = 0.00;
 
     <!-- Checkout button -->
     <?php if ($totalPrice > 0): ?>
+        <input type="submit" name="update_cart" value="Update Cart">
         <input type="submit" name="checkout" value="Checkout">
     <?php endif; ?>
     </form> <!-- End the form -->
